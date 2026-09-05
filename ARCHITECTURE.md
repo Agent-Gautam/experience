@@ -15,7 +15,7 @@
 - **Framework**: NestJS (TypeScript)
 - **Runtime**: Node.js
 - **Package Manager**: pnpm
-- **Tools**: docker (for local development)
+- **Tools**: docker (for local development), TypeORM
 
 ### Project Structure
 ```

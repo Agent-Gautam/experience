@@ -34,3 +34,5 @@ See `ARCHITECTURE.md` for architectural decisions and `PROGRESS.md` for developm
 ## Instructions
 
 - Never search, glob, or read inside `node_modules/`, `dist/`, or `.git/` directories.
+- use pnpm instead of npm
+- you dont' need to take any action like downloading packages, unless asked
