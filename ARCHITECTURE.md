@@ -15,6 +15,7 @@
 - **Framework**: NestJS (TypeScript)
 - **Runtime**: Node.js
 - **Package Manager**: pnpm
+- **Tools**: docker (for local development)
 
 ### Project Structure
 ```
@@ -24,6 +25,10 @@ src/
   app.controller.ts - Root controller
   app.service.ts    - Root service
 ```
+
+### Development
+- docker local postgres container is used for fast local development
+- supabase is used for production database
 ---
 
 ## Changes
