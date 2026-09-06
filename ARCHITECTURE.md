@@ -29,6 +29,9 @@ src/
 ### Development
 - docker local postgres container is used for fast local development
 - supabase is used for production database
+- @nestjs/config is used to configure environment variables. there are two env files used - env.development and env.production. during production synchronize is false
+- in production envrionment supabase is used whereas in development environment docker postgres is used.
+- every development related script first run docker engine using docker-start.ps1 script
 ---
 
 ## Changes
