@@ -37,3 +37,4 @@ See `ARCHITECTURE.md` for architectural decisions and `PROGRESS.md` for developm
 - use pnpm instead of npm
 - you dont' need to take any action like downloading packages, unless asked
 - this project is being built and run on windows, so act accordingly
+- don't write explanatory but collaborative comments where it is truly necessary

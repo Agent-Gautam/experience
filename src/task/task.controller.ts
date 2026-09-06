@@ -12,7 +12,6 @@ import {
 import { TaskService } from './task.service.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { UpdateTaskDto } from './dto/update-task.dto.js';
-import { Task } from './entities/task.entity.js';
 
 @Controller('task')
 export class TaskController {
@@ -20,26 +19,27 @@ export class TaskController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.taskService.create(createTaskDto);
+  async create(@Body() createTaskDto: CreateTaskDto) {
+    const task = await this.taskService.create(createTaskDto);
+    return { message: 'Task created successfully', data: task };
   }
 
   @Get()
-  findAll(): Promise<Task[]> {
-    return this.taskService.findAll();
+  async findAll() {
+    const tasks = await this.taskService.findAll();
+    return { message: 'Tasks retrieved successfully', data: tasks };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Task> {
-    return this.taskService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const task = await this.taskService.findOne(+id);
+    return { message: 'Task retrieved successfully', data: task };
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateTaskDto: UpdateTaskDto,
-  ): Promise<Task> {
-    return this.taskService.update(+id, updateTaskDto);
+  async update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+    const task = await this.taskService.update(+id, updateTaskDto);
+    return { message: 'Task updated successfully', data: task };
   }
 
   @Delete(':id')

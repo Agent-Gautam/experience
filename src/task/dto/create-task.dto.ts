@@ -32,9 +32,14 @@ export class CreateTaskDto {
 
   // Enforce: timednessValue must be null when timedness is 'none'
   // and must be provided when timedness is 'deadline' or 'scheduled'
-  @ValidateIf((o) => o.timedness !== TaskTimedness.NONE)
+  @ValidateIf(
+    (o) => o.timedness !== undefined && o.timedness !== TaskTimedness.NONE,
+  )
   @IsNumber()
-  @IsNotEmpty({ message: 'timednessValue is required when timedness is deadline or scheduled' })
+  @IsNotEmpty({
+    message:
+      'timednessValue is required when timedness is deadline or scheduled',
+  })
   readonly timednessValue?: number;
 
   @IsDate()
