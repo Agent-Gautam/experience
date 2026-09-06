@@ -32,6 +32,14 @@ src/
 - @nestjs/config is used to configure environment variables. there are two env files used - env.development and env.production. during production synchronize is false
 - in production envrionment supabase is used whereas in development environment docker postgres is used.
 - every development related script first run docker engine using docker-start.ps1 script
+
+### Task
+- timedness of task defines time associated with task either to do the task on a specific time or must be done before specific time.
+- timednessValue is ensured to only exist if timedness has any value
+- status.Scheduled tells that the task is scheduled currently, timedness.Scheduled tells that the task must be done at specific time, task.scheduled tells the actual scheduled time of task
+- any task regardless of timedness.scheduled can be scheduled by the app or coming features.
+- createdAt and updatedAt are not included in the dto because they are internally managed by typeorm.
+- indices exist at status and scheduledAt for now.
 ---
 
 ## Changes

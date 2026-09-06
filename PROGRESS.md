@@ -8,3 +8,4 @@
 05 AUG 2026: Setup TypeORM in app.module and created config for it
 06 AUG 2026: Env variables setup, env.development for using local docker postgres and env.production for using supabase db.
 06 AUG 2026: supabase setup new project created experience
+06 SEP 2026: TASk - Implemented Task module with NestJS, TypeORM, DTOs, entities, status and timedness enums, constraint validation

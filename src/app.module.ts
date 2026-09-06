@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TaskModule } from './task/task.module.js';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: config.get('NODE_ENV') !== 'production',
       }),
     }),
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
