@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskModule } from './task/task.module.js';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor.js';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
+import { GoalModule } from './goal/goal.module.js';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
       }),
     }),
     TaskModule,
+    GoalModule,
   ],
   controllers: [AppController],
   providers: [

@@ -40,6 +40,15 @@ src/
 - any task regardless of timedness.scheduled can be scheduled by the app or coming features.
 - createdAt and updatedAt are not included in the dto because they are internally managed by typeorm.
 - indices exist at status and scheduledAt for now.
+
+### Goal
+- goal is unique by name and priority
+- a goal can be active, paused or planned
+- default duration per task helps users easily create task with default time set per goal
+- if progress tracking is enabled, users is often asks for checkpoints they reach at, which is yet to plan
+- a goal is an entity attached with a task which helps groups or categorize similar tasks and helps in progress tracking.
+- priority is decreasing with numbers, 1 means highest priority and then it decreases.
+- priority is completely user provided, however, new task always has lowest priority
 ---
 
 ## Changes
@@ -48,7 +57,9 @@ src/
 
 ## Planned Architectural Changes
 
-_No planned changes yet_
+- while creating a goal, lowest priority of all goals (highest number of priority) is fetched first, then the new goal is assigned the next number automatically, user can not enter any number of its choice
+- user is able to change the priority of task after its creation but within only the numbers already assigned in priority
+- body parser filter - it checks syntax errors in json and empty bodies sent especially not catched during update events
 
 ---
 
