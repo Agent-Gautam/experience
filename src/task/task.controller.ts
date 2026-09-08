@@ -43,8 +43,8 @@ export class TaskController {
   }
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string): Promise<void> {
-    return this.taskService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const deletedTask = await this.taskService.remove(+id);
+    return { message: 'Task deleted successfully', data: deletedTask };
   }
 }
