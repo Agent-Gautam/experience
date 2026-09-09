@@ -22,6 +22,9 @@ export class TaskService {
       const task = this.taskRepository.create(createTaskDto);
       return await this.taskRepository.save(task);
     } catch (error: any) {
+      if (error.code === '23503') {
+        throw new BadRequestException('Goal with the specified goalId does not exist');
+      }
       if (error.code === '23514') {
         // CHECK constraint violation
         throw new BadRequestException(
@@ -32,17 +35,59 @@ export class TaskService {
     }
   }
 
-  async findAll(): Promise<Task[]> {
+  async findAll(options: { includeGoal?: boolean } = {}): Promise<Task[]> {
     try {
-      return await this.taskRepository.find();
+      return await this.taskRepository.find({
+        relations: {
+          goal: options.includeGoal ?? false,
+        },
+        select: options.includeGoal ? {
+          id: true,
+          name: true,
+          status: true,
+          duration: true,
+          goal: {
+            id: true,
+            name: true,
+            icon: true,
+          }
+        } : undefined,
+      });
     } catch (error) {
       throw new InternalServerErrorException('Failed to retrieve tasks');
     }
   }
 
-  async findOne(id: number): Promise<Task> {
+  async findAllByGoalId(goalId: number): Promise<Task[]> {
     try {
-      const task = await this.taskRepository.findOneBy({ id });
+      return await this.taskRepository.find({
+        where: { goalId },
+        order: { createdAt: 'DESC' },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve tasks for goal');
+    }
+  }
+
+  async findOne(id: number, options?: { includeGoal?: boolean }): Promise<Task> {
+    try {
+      const task = await this.taskRepository.findOne({
+        where: { id },
+        relations: {
+          goal: options?.includeGoal ?? false,
+        },
+        select: options?.includeGoal ? {
+          id: true,
+          name: true,
+          status: true,
+          duration: true,
+          goal: {
+            id: true,
+            name: true,
+            icon: true,
+          }
+        } : undefined,
+      });
       if (!task) {
         throw new NotFoundException(`Task with ID ${id} not found`);
       }
@@ -65,6 +110,9 @@ export class TaskService {
     } catch (error: any) {
       if (error instanceof NotFoundException) {
         throw error;
+      }
+      if (error.code === '23503') {
+        throw new BadRequestException('Goal with the specified goalId does not exist');
       }
       if (error.code === '23514') {
         throw new BadRequestException(

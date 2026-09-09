@@ -9,12 +9,15 @@ import { Repository } from 'typeorm';
 import { CreateGoalDto } from './dto/create-goal.dto.js';
 import { UpdateGoalDto } from './dto/update-goal.dto.js';
 import { Goal } from './entities/goal.entity.js';
+import { TaskService } from '../task/task.service.js';
+import { Task } from '../task/entities/task.entity.js';
 
 @Injectable()
 export class GoalService {
   constructor(
     @InjectRepository(Goal)
     private readonly goalRepository: Repository<Goal>,
+    private readonly taskService: TaskService,
   ) {}
 
   async create(createGoalDto: CreateGoalDto): Promise<Goal> {
@@ -82,6 +85,18 @@ export class GoalService {
         );
       }
       throw new InternalServerErrorException('Failed to update goal');
+    }
+  }
+
+  async findTasks(id: number): Promise<Task[]> {
+    try {
+      await this.findOne(id);
+      return await this.taskService.findAllByGoalId(id);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Failed to retrieve tasks for goal');
     }
   }
 

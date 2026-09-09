@@ -8,5 +8,6 @@ import { Task } from './entities/task.entity.js';
   imports: [TypeOrmModule.forFeature([Task])],
   controllers: [TaskController],
   providers: [TaskService],
+  exports: [TaskService],
 })
 export class TaskModule {}

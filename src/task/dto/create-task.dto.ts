@@ -51,4 +51,8 @@ export class CreateTaskDto {
   @IsOptional()
   @Type(() => Date)
   readonly scheduledAt?: Date;
+
+  @IsNumber()
+  @IsOptional()
+  readonly goalId?: number;
 }

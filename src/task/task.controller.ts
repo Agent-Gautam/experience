@@ -8,6 +8,7 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { TaskService } from './task.service.js';
 import { CreateTaskDto } from './dto/create-task.dto.js';
@@ -25,14 +26,16 @@ export class TaskController {
   }
 
   @Get()
-  async findAll() {
-    const tasks = await this.taskService.findAll();
+  async findAll(@Query('include') include?: string) {
+    const includeGoal = include?.split(',').includes('goal');
+    const tasks = await this.taskService.findAll({ includeGoal });
     return { message: 'Tasks retrieved successfully', data: tasks };
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const task = await this.taskService.findOne(+id);
+  async findOne(@Param('id') id: string, @Query('include') include?: string) {
+    const includeGoal = include?.split(',').includes('goal');
+    const task = await this.taskService.findOne(+id, { includeGoal });
     return { message: 'Task retrieved successfully', data: task };
   }
 

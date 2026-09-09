@@ -10,3 +10,4 @@
 06 AUG 2026: supabase setup new project created experience
 06 SEP 2026: TASk - Implemented Task module with NestJS, TypeORM, DTOs, entities, status and timedness enums, constraint validation
 08 SEP 2026: GOAL - Implemented GOAL module with DTOs, entities, service, controller and module
+09 SEP 2026: GOAL - Connect tasks with goal, fetch task with its goal and all tasks related to a goal

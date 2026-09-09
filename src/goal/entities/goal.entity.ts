@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   Index,
   Unique,
+  OneToMany,
 } from 'typeorm';
 import { GoalState } from '../enums/goal-state.enum.js';
+import { Task } from '../../task/entities/task.entity.js';
 
 @Entity()
 @Unique(['name'])
@@ -58,4 +60,7 @@ export class Goal {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => Task, (task) => task.goal, { cascade: false })
+  tasks: Task[];
 }

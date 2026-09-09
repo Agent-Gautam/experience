@@ -36,6 +36,12 @@ export class GoalController {
     return { message: 'Goal retrieved successfully', data: goal };
   }
 
+  @Get(':id/tasks')
+  async findTasks(@Param('id') id: string) {
+    const tasks = await this.goalService.findTasks(+id);
+    return { message: 'Tasks retrieved successfully', data: tasks };
+  }
+
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateGoalDto: UpdateGoalDto) {
     const goal = await this.goalService.update(+id, updateGoalDto);

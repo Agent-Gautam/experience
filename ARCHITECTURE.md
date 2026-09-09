@@ -49,6 +49,12 @@ src/
 - a goal is an entity attached with a task which helps groups or categorize similar tasks and helps in progress tracking.
 - priority is decreasing with numbers, 1 means highest priority and then it decreases.
 - priority is completely user provided, however, new task always has lowest priority
+
+### Task and goal
+- Tasks are treated as dependent entities. The relationship from Task to Goal uses onDelete: 'CASCADE'. If a Goal is deleted, all tasks currently associated with that Goal are automatically deleted from the database.
+- when goal is included to fetch, task field shows name, status, duration and goal comes with name and icon only.
+- goal/:id/tasks fetch all the tasks related to a goal
+- Foreign Key reference violations (like Postgres error 23503 when inserting a task with a non-existent goalId) are explicitly caught in the service layer and translated into standard HTTP 400 Bad Request exceptions. This ensures internal database errors and implementation details do not leak to the client
 ---
 
 ## Changes
@@ -60,6 +66,7 @@ src/
 - while creating a goal, lowest priority of all goals (highest number of priority) is fetched first, then the new goal is assigned the next number automatically, user can not enter any number of its choice
 - user is able to change the priority of task after its creation but within only the numbers already assigned in priority
 - body parser filter - it checks syntax errors in json and empty bodies sent especially not catched during update events
+- common pagination service used throughout the app
 
 ---
 
