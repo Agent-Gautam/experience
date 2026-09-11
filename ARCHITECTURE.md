@@ -16,6 +16,7 @@
 - **Runtime**: Node.js
 - **Package Manager**: pnpm
 - **Tools**: docker (for local development), TypeORM
+- **Auth**: BetterAuth
 
 ### Project Structure
 ```
@@ -32,6 +33,12 @@ src/
 - @nestjs/config is used to configure environment variables. there are two env files used - env.development and env.production. during production synchronize is false
 - in production envrionment supabase is used whereas in development environment docker postgres is used.
 - every development related script first run docker engine using docker-start.ps1 script
+
+### Swagger
+- Integrated Swagger/OpenAPI using @nestjs/swagger and swagger-ui-express to auto-generate API documentation.
+- Configured Swagger document in main.ts with DocumentBuilder (title, description, version, tag) and mounted UI at /api-json.
+- Enabled deepScanRoutes: true to automatically scan controllers and DTOs for metadata.
+- set plugins: [@nestjs/swagger] in compiler options in nestcli.json to automatically configure dto types
 
 ### Task
 - timedness of task defines time associated with task either to do the task on a specific time or must be done before specific time.
